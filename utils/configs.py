@@ -6,10 +6,12 @@ from argparse import ArgumentParser, ArgumentDefaultsHelpFormatter
 
 __parser = None
 
-def get_parser():
+def get_parser(parents=None):
     global __parser
     if __parser is None:
-        __parser = ArgumentParser(formatter_class=ArgumentDefaultsHelpFormatter, prog='main.py')
+        if parents is None:
+            parents = []
+        __parser = ArgumentParser(formatter_class=ArgumentDefaultsHelpFormatter, prog='main.py', parents=parents)
     return __parser
 
 def check_existing_config(config):
