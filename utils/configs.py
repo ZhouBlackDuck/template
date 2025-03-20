@@ -14,4 +14,5 @@ def get_parser(logger: [bool, Logger] = False):
                                       path.normpath(path.join(os.getcwd(), 'configs', 'config.yaml')),
                                   ],
                                   logger=logger)
+        __parser.add_argument('-c', '--config', help='Path to config file', metavar='path', nargs=1, action='config')
     return __parser
