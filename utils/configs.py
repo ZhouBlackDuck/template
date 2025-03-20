@@ -16,3 +16,8 @@ def get_parser(logger: [bool, Logger] = False):
                                   logger=logger)
         __parser.add_argument('-c', '--config', help='Path to config file', metavar='path', nargs=1, action='config')
     return __parser
+
+
+__all__ = [
+    'get_parser'
+]

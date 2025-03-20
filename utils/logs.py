@@ -8,3 +8,8 @@ def get_logger():
     if __logger is None:
         __logger = getLogger('main')
     return __logger
+
+
+__all__ = [
+    'get_logger'
+]
