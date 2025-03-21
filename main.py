@@ -1,5 +1,7 @@
 import logging
 import utils
+import datasets
+import models
 
 if __name__ == '__main__':
     parser = utils.get_parser()

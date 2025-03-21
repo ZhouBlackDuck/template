@@ -1,6 +1,5 @@
 import utils
 from jsonargparse.typing import OpenUnitInterval
-
 from utils.defaults import DEFAULT_SPLIT_RATIO, DEFAULT_DEVICE, DEFAULT_BATCH_SIZE
 
 utils.get_parser().add_argument('--split-ratio', help='Train/test split ratio', metavar='ratio', nargs='?',
