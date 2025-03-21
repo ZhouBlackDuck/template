@@ -1,5 +1,4 @@
 from argparse import SUPPRESS
-
 from jsonargparse.typing import Path_fc
 
 from .configs import *

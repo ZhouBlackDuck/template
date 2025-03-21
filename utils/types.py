@@ -1,5 +1,4 @@
 import re
-
 from jsonargparse.typing import extend_base_type
 
 

@@ -1,5 +1,4 @@
 import logging
-
 import utils
 
 if __name__ == '__main__':
