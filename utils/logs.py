@@ -5,6 +5,8 @@ __logger = None
 DEFAULT_LEVEL = 'INFO'
 DEFAULT_FORMAT = '[%(asctime)s] - %(name)s - [%(levelname)s] - %(message)s'
 DEFAULT_DATEFMT = '%Y-%m-%d %H:%M:%S'
+DEFAULT_FILEMODE = 'a'
+DEFAULT_ENCODING = 'utf-8'
 
 
 def get_logger():
@@ -19,5 +21,7 @@ __all__ = [
     'get_logger',
     'DEFAULT_LEVEL',
     'DEFAULT_FORMAT',
-    'DEFAULT_DATEFMT'
+    'DEFAULT_DATEFMT',
+    'DEFAULT_FILEMODE',
+    'DEFAULT_ENCODING'
 ]
