@@ -3,3 +3,7 @@ DEFAULT_LOGGING__FORMAT = '[%(asctime)s] - %(name)s - [%(levelname)s] - %(messag
 DEFAULT_LOGGING__DATEFMT = '%Y-%m-%d %H:%M:%S'
 DEFAULT_LOGGING__FILEMODE = 'a'
 DEFAULT_LOGGING__ENCODING = 'utf-8'
+
+DEFAULT_SPLIT_RATIO = 0.8
+DEFAULT_DEVICE = 'cuda'
+DEFAULT_BATCH_SIZE = 64
