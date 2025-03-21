@@ -1,0 +1,5 @@
+DEFAULT_LOGGING__LEVEL = 'INFO'
+DEFAULT_LOGGING__FORMAT = '[%(asctime)s] - %(name)s - [%(levelname)s] - %(message)s'
+DEFAULT_LOGGING__DATEFMT = '%Y-%m-%d %H:%M:%S'
+DEFAULT_LOGGING__FILEMODE = 'a'
+DEFAULT_LOGGING__ENCODING = 'utf-8'
