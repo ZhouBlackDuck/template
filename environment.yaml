@@ -1,0 +1,22 @@
+name: DL
+channels:
+  - pytorch
+  - nvidia
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.9
+  - pytorch-cuda
+  - pytorch
+  - torchaudio
+  - torchvision
+  - tqdm
+  - pandas
+  - jupyter
+  - huggingface_hub
+  - matplotlib
+  - rich
+  - ipywidgets
+  - transformers
+  - pip:
+      - -r requirements.txt
