@@ -1,4 +1,5 @@
 jsonargparse==4.37.0
+inflection==0.5.1
 tensorboardx
 tensorflow
 torch-cluster

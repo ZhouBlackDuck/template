@@ -6,17 +6,17 @@ channels:
   - defaults
 dependencies:
   - python=3.9
+  - rich=13.9.4
+  - jupyter=1.1.1
+  - ipywidgets=8.1.5
   - pytorch-cuda
   - pytorch
   - torchaudio
   - torchvision
   - tqdm
   - pandas
-  - jupyter
   - huggingface_hub
   - matplotlib
-  - rich
-  - ipywidgets
   - transformers
   - pip:
       - -r requirements.txt

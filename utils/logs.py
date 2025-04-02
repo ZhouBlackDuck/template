@@ -1,7 +1,6 @@
 import logging
 from logging import getLogger
-
-from .defaults import DEFAULT_LOGGING__LEVEL, DEFAULT_LOGGING__FORMAT, DEFAULT_LOGGING__DATEFMT
+from defaults import DEFAULT_LOGGING__LEVEL, DEFAULT_LOGGING__FORMAT, DEFAULT_LOGGING__DATEFMT
 
 __logger = None
 

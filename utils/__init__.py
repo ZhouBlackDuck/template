@@ -1,10 +1,10 @@
 from argparse import SUPPRESS
 from jsonargparse.typing import Path_fc
+from defaults import *
 
 from .configs import *
 from .logs import *
 from .types import *
-from .defaults import *
 
 get_parser(get_logger())
 get_parser().add_argument('--logging.filename', help='Path to log file', metavar='path', nargs=1, type=Path_fc,
