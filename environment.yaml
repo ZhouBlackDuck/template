@@ -9,7 +9,7 @@ dependencies:
   - rich=13.9.4
   - ipywidgets=8.1.5
   - pip=25.0
-  - notebook
+  - notebook=7.3.2
   - pytorch-cuda
   - pytorch
   - torchaudio
