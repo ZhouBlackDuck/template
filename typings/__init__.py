@@ -1,13 +1,7 @@
 from jsonargparse.typing import extend_base_type
 
-
-def validation_wrapper(func, msg):
-    def validate(_, v):
-        if not func(v):
-            raise ValueError(msg.format(v))
-
-    return validate
-
+from utils import validation_wrapper
+from .defaults import *
 
 FileMode = extend_base_type('FileMode', str,
                             validation_wrapper(
@@ -31,7 +25,3 @@ FileMode = extend_base_type('FileMode', str,
                                                 "x+", "+x",
                                                 "xt+", "x+t", "+xt", "tx+", "t+x", "+tx"],
                                 'Invalid file mode {}'))
-
-__all__ = [
-    'FileMode'
-]

@@ -1,9 +1,15 @@
-DEFAULT_LOGGING__LEVEL = 'INFO'
-DEFAULT_LOGGING__FORMAT = '[%(asctime)s] - %(name)s - [%(levelname)s] - %(message)s'
-DEFAULT_LOGGING__DATEFMT = '%Y-%m-%d %H:%M:%S'
-DEFAULT_LOGGING__FILEMODE = 'a'
-DEFAULT_LOGGING__ENCODING = 'utf-8'
+import os
+import sys
+from inspect import isclass
 
-DEFAULT_SPLIT_RATIO = 0.8
-DEFAULT_DEVICE = 'cuda'
-DEFAULT_BATCH_SIZE = 64
+from typings import DefaultsMeta
+from utils import import_modules
+
+(lambda l: [setattr(sys.modules[__name__], *t) for c in l for t in c])((
+    lambda l: [getattr(m, v).__defaults__ for m in l for v in dir(m) if
+               isclass(getattr(m, v)) and type(getattr(m, v)) is DefaultsMeta])(
+    import_modules('defaults', os.path.dirname(__file__))))
+
+
+def get_defaults(name):
+    return getattr(sys.modules[__name__], name)
