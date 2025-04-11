@@ -9,6 +9,9 @@ class DatasetBuilder(ABC):
     @property
     @abstractmethod
     def data(self):
+        """
+        Dataset that model will use.
+        """
         pass
 
     @data.setter
