@@ -21,7 +21,28 @@ class DatasetBuilder(ABC):
         pass
 
     def process(self, *args, **kwargs):
+        """
+        Process all dataset, uniform data shapes, drop invalid data, etc.
+        """
         self.__commands.append((self._do_process, args, kwargs))
+
+    @abstractmethod
+    def load(self, *args, **kwargs):
+        """
+        Load processed dataset from disk.
+        """
+        pass
+
+    @abstractmethod
+    def save(self, *args, **kwargs):
+        pass
+
+    @abstractmethod
+    def read(self, *args, **kwargs):
+        """
+        Read raw dataset from disk.
+        """
+        pass
 
     def build(self):
         for func, args, kwargs in self.__commands:
