@@ -27,7 +27,13 @@ class DatasetBuilder(ABC):
         """
         Process all dataset, uniform data shapes, drop invalid data, etc.
         """
-        self.__commands.append((self._do_process, args, kwargs))
+        self._add_command(self._do_process, *args, **kwargs)
+
+    def _add_command(self, func, *args, **kwargs):
+        """
+        Add command to be executed later.
+        """
+        self.__commands.append((func, args, kwargs))
 
     @abstractmethod
     def load(self, *args, **kwargs):
