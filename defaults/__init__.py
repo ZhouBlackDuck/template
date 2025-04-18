@@ -11,5 +11,5 @@ from utils import import_modules
     import_modules('defaults', os.path.dirname(__file__))))
 
 
-def get_defaults(name):
+def get_defaults(name: str):
     return getattr(sys.modules[__name__], name)
