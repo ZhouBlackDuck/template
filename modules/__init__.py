@@ -9,24 +9,23 @@ from .parser import ConfigParser
 
 ProcessLogger.set_config(level=get_defaults('DEFAULT_LOGGING__LEVEL'), format=get_defaults('DEFAULT_LOGGING__FORMAT'),
                          datefmt=get_defaults('DEFAULT_LOGGING__DATEFMT'), force=True)
-with ConfigParser().get_lock():
-    ConfigParser().parser.add_argument('--logging.filename', help='Path to log file', metavar='path', nargs=1,
-                                       type=Path_fc,
-                                       default=SUPPRESS)
-    ConfigParser().parser.add_argument('--logging.filemode', help='Log file mode', metavar='mode', nargs='?',
-                                       type=FileMode,
-                                       default=get_defaults('DEFAULT_LOGGING__FILEMODE'),
-                                       const=get_defaults('DEFAULT_LOGGING__FILEMODE'))
-    ConfigParser().parser.add_argument('--logging.level', help='Logging level', metavar='level', nargs='?',
-                                       choices=['DEBUG', 'INFO', 'WARNING', 'ERROR'],
-                                       default=get_defaults('DEFAULT_LOGGING__LEVEL'),
-                                       const=get_defaults('DEFAULT_LOGGING__LEVEL'))
-    ConfigParser().parser.add_argument('--logging.format', help='Logging format', metavar='format', nargs='?',
-                                       default=get_defaults('DEFAULT_LOGGING__FORMAT'),
-                                       const=get_defaults('DEFAULT_LOGGING__FORMAT'))
-    ConfigParser().parser.add_argument('--logging.datefmt', help='Logging date format', metavar='format', nargs='?',
-                                       default=get_defaults('DEFAULT_LOGGING__DATEFMT'),
-                                       const=get_defaults('DEFAULT_LOGGING__DATEFMT'))
-    ConfigParser().parser.add_argument('--logging.encoding', help='Log file encoding', metavar='encoding', nargs='?',
-                                       default=get_defaults('DEFAULT_LOGGING__ENCODING'),
-                                       const=get_defaults('DEFAULT_LOGGING__ENCODING'))
+ConfigParser().parser.add_argument('--logging.filename', help='Path to log file', metavar='path', nargs=1,
+                                   type=Path_fc,
+                                   default=SUPPRESS)
+ConfigParser().parser.add_argument('--logging.filemode', help='Log file mode', metavar='mode', nargs='?',
+                                   type=FileMode,
+                                   default=get_defaults('DEFAULT_LOGGING__FILEMODE'),
+                                   const=get_defaults('DEFAULT_LOGGING__FILEMODE'))
+ConfigParser().parser.add_argument('--logging.level', help='Logging level', metavar='level', nargs='?',
+                                   choices=['DEBUG', 'INFO', 'WARNING', 'ERROR'],
+                                   default=get_defaults('DEFAULT_LOGGING__LEVEL'),
+                                   const=get_defaults('DEFAULT_LOGGING__LEVEL'))
+ConfigParser().parser.add_argument('--logging.format', help='Logging format', metavar='format', nargs='?',
+                                   default=get_defaults('DEFAULT_LOGGING__FORMAT'),
+                                   const=get_defaults('DEFAULT_LOGGING__FORMAT'))
+ConfigParser().parser.add_argument('--logging.datefmt', help='Logging date format', metavar='format', nargs='?',
+                                   default=get_defaults('DEFAULT_LOGGING__DATEFMT'),
+                                   const=get_defaults('DEFAULT_LOGGING__DATEFMT'))
+ConfigParser().parser.add_argument('--logging.encoding', help='Log file encoding', metavar='encoding', nargs='?',
+                                   default=get_defaults('DEFAULT_LOGGING__ENCODING'),
+                                   const=get_defaults('DEFAULT_LOGGING__ENCODING'))

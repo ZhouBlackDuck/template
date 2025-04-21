@@ -6,8 +6,7 @@ from models import ModelFactory
 
 if __name__ == '__main__':
     try:
-        with ConfigParser().get_lock():
-            args = ConfigParser().parser.parse_args()
+        args = ConfigParser().parser.parse_args()
         if hasattr(args.logging, 'filename'):
             args.logging.filename = args.logging.filename[0].absolute
         ProcessLogger.set_config(**args.logging, force=True)
