@@ -23,7 +23,13 @@ class ModelFactory:
             raise ValueError(f"Unknown Model: {subcommand}")
 
 
-ConfigParser().parser_dict.update(**{
-    'model': ArgumentParser()
-})
-(lambda p: [p.subcommands.add_subcommand(*d) for d in p.parser_dict.items()])(ConfigParser())
+def init_parser():
+    instance = ConfigParser()
+    instance.parser_dict.update(**{
+        'model': ArgumentParser()
+    })
+    for item in instance.parser_dict.items():
+        instance.subcommands.add_subcommand(*item)
+
+
+init_parser()
