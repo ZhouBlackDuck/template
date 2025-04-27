@@ -1,8 +1,6 @@
 from abc import ABC, abstractmethod
 from typing import Callable
 
-from pydantic import validate_call
-
 
 class DatasetBuilder(ABC):
     def __init__(self, *args, **kwargs):
@@ -32,7 +30,6 @@ class DatasetBuilder(ABC):
         """
         self._add_command(self._do_process, *args, **kwargs)
 
-    @validate_call
     def _add_command(self, func: Callable, *args, **kwargs):
         """
         Add command to be executed later.
