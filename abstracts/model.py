@@ -1,9 +1,12 @@
 from abc import ABC, abstractmethod
+from typing import Optional
+
+from abstracts.director import ModelDatasetDirector
 
 
 class AbstractModel(ABC):
     def __init__(self, *args, **kwargs):
-        self.__director = None
+        self.__director: Optional[ModelDatasetDirector] = None
         self.__dataset = None
         super().__init__(*args, **kwargs)
 
@@ -28,14 +31,17 @@ class AbstractModel(ABC):
         pass
 
     @abstractmethod
-    def _pass_parameters(self, *args, **kwargs):
+    def _do_construct(self):
         pass
+
+    def _construct(self):
+        self._do_construct()
+        return self.director.execute()
 
     @property
     def dataset(self):
         if self.__dataset is None:
-            self._pass_parameters()
-            self.__dataset = self.director.execute()
+            self.__dataset = self._construct()
         return self.__dataset
 
     @dataset.setter
@@ -51,5 +57,4 @@ class AbstractModel(ABC):
         self.__director = value
 
     def reproduce(self):
-        self._pass_parameters()
-        self.dataset = self.director.execute()
+        self.dataset = self._construct()

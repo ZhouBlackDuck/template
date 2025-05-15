@@ -1,35 +1,26 @@
-from typing import Dict
+"""
+深度学习模型
+"""
 
-from jsonargparse import ArgumentParser
-
-from abstracts import AbstractModel
-from models.directors import *
-from modules import ConfigParser
+from abstracts.model import AbstractModel
+from configs.parser import ConfigParser
+from typings.model import Model
 
 
 class ModelFactory:
     @staticmethod
-    def create_model(subcommand: str = None, kwargs: Dict = None) -> AbstractModel:
+    def create_model(name: str = None, **kwargs) -> AbstractModel:
         """
-        Creates a model based on the provided subcommand and arguments.
+        Creates a model based on the provided model name and arguments.
 
         Args:
-            subcommand (str): Name of the model to create.
+            name (str): Name of the model to create.
             kwargs (dict): Arguments for the model.
         """
-        if subcommand is None:
-            raise ValueError("Model Subcommand must be specified")
+        if name is None:
+            raise ValueError("Model name must be specified")
         else:
-            raise ValueError(f"Unknown Model: {subcommand}")
+            raise ValueError(f"Unknown Model: {name}")
 
 
-def init_parser():
-    instance = ConfigParser()
-    instance.parser_dict.update(**{
-        'model': ArgumentParser()
-    })
-    for item in instance.parser_dict.items():
-        instance.subcommands.add_subcommand(*item)
-
-
-init_parser()
+ConfigParser().parser.add_argument('--model', type=Model)

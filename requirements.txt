@@ -1,8 +1,8 @@
 jsonargparse==4.37.0
+reconplogger==4.17.1
 docstring_parser==0.16
 inflection==0.5.1
 tensorboardx
-tensorflow
 torch-cluster
 torch-geometric
 torch-scatter

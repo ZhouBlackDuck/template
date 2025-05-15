@@ -29,6 +29,7 @@ class DatasetBuilder(ABC):
         Process all dataset, uniform data shapes, drop invalid data, etc.
         """
         self._add_command(self._do_process, *args, **kwargs)
+        return self
 
     def _add_command(self, func: Callable, *args, **kwargs):
         """
