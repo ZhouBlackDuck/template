@@ -11,3 +11,4 @@ class Model(BaseModel):
     save_path: Annotated[Path_dc, Field(description='Path to save the model')]
     hidden_size: Annotated[int, Field(description='Input size for hidden layer')] = 768
     epochs: Annotated[int, Field(description='Training epochs')] = 3
+    infer: Annotated[bool, Field(description='Whether to run inference')] = False

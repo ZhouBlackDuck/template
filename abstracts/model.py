@@ -27,7 +27,7 @@ class AbstractModel(ABC):
         pass
 
     @abstractmethod
-    def load(self, *args, **kwargs):
+    def load(self, *args, **kwargs) -> bool:
         pass
 
     @abstractmethod
