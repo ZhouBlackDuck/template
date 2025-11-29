@@ -5,6 +5,10 @@ import hydra
 from omegaconf import DictConfig, open_dict
 from pytorch_lightning import seed_everything, Trainer
 
+# noinspection PyUnresolvedReferences
+import datamodules
+# noinspection PyUnresolvedReferences
+import models
 from utils.registry import get_data, get_model
 
 
