@@ -1,0 +1,33 @@
+import os
+from pathlib import Path
+
+import hydra
+from omegaconf import DictConfig, open_dict
+from pytorch_lightning import seed_everything, Trainer
+
+from utils.registry import get_data, get_model
+
+
+@hydra.main(config_path="../conf", config_name="config", version_base="1.3")
+def main(cfg: DictConfig):
+    # 加载模型
+    with open_dict(cfg):
+        model_class = get_model(cfg.model.pop("type"))
+    model = model_class(**cfg.model)
+
+    # 加载数据集
+    with open_dict(cfg):
+        data_class = get_data(cfg.data.pop("type"))
+    datamodule = data_class(**cfg.data)
+
+    # Trainer
+    seed_everything(cfg.seed, workers=True)
+    trainer = Trainer(**cfg.trainer)
+
+    # 训练
+    trainer.fit(model, datamodule, **cfg.train)
+
+
+if __name__ == "__main__":
+    os.chdir(Path(__file__).parent)
+    main()
