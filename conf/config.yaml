@@ -1,6 +1,6 @@
 defaults:
-  - model: xxx
-  - data: xxx
+  - model: mlp
+  - data: mnist
   - optimizer: adam
   - logger: tensorboard
   - trainer: default

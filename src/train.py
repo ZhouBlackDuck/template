@@ -12,24 +12,28 @@ import models
 from utils.registry import get_data, get_model
 
 
+# noinspection DuplicatedCode
 @hydra.main(config_path="../conf", config_name="config", version_base="1.3")
 def main(cfg: DictConfig):
     # 加载模型
     with open_dict(cfg):
         model_class = get_model(cfg.model.pop("type"))
-    model = model_class(**cfg.model)
+    model = model_class(optimizer=cfg.optimizer, **cfg.model)
 
     # 加载数据集
     with open_dict(cfg):
         data_class = get_data(cfg.data.pop("type"))
-    datamodule = data_class(**cfg.data)
+    dm = data_class(**cfg.data)
+
+    # Logger
+    logger = hydra.utils.instantiate(cfg.logger)
 
     # Trainer
     seed_everything(cfg.seed, workers=True)
-    trainer = Trainer(**cfg.trainer)
+    trainer = Trainer(logger=logger, **cfg.trainer)
 
     # 训练
-    trainer.fit(model, datamodule, **cfg.train)
+    trainer.fit(model, dm, **cfg.train)
 
 
 if __name__ == "__main__":
