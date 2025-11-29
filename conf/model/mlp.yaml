@@ -1,0 +1,6 @@
+type: MNISTClassifier
+
+input_dim: 784
+hidden_dim1: 256
+hidden_dim2: 128
+dropout: 0.2

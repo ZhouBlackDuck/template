@@ -1,0 +1,5 @@
+lr: 1e-3
+
+scheduler:
+  factor: 0.5
+  patience: 3
