@@ -1,3 +1,4 @@
 /.idea/
 *.iml
 /.history/
+/**/__pycache__/
