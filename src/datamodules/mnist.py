@@ -17,7 +17,7 @@ class MNISTDataModule(pl.LightningDataModule):
         num_workers: 数据加载的工作进程数
     """
 
-    def __init__(self, data_dir=Path(__file__).parents[2] / "data" / "mnist", batch_size=64, num_workers=4):
+    def __init__(self, data_dir=Path(__file__).parents[2] / "data", batch_size=64, num_workers=4):
         super().__init__()
         self.data_dir = data_dir
         self.batch_size = batch_size
