@@ -2,3 +2,5 @@
 *.iml
 /.history/
 /**/__pycache__/
+/data/*/
+/outputs/*/
