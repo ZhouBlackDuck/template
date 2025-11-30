@@ -4,20 +4,21 @@ import torch.nn.functional as f
 from torch import nn
 from torchmetrics import Accuracy
 
+from utils.mixins import OptimizerMixin
 from utils.registry import model
 
 
 @model
-class MNISTClassifier(pl.LightningModule):
+class MNISTClassifier(pl.LightningModule, OptimizerMixin):
     """简单的 MLP 模型用于 MNIST 手写数字识别
     
     这是一个经典的深度学习 Hello World 示例。
     网络结构：784 -> 256 -> 128 -> 10
     
     Args:
+        input_dim: 输入维度
         hidden_dim1: 第一个隐藏层的维度
         hidden_dim2: 第二个隐藏层的维度
-        lr: 学习率
         dropout: Dropout 概率
     """
 
@@ -27,10 +28,8 @@ class MNISTClassifier(pl.LightningModule):
             hidden_dim1=256,
             hidden_dim2=128,
             dropout=0.2,
-            **kwargs
     ):
         super().__init__()
-        self.optimizer = kwargs.pop('optimizer', {})
 
         # 定义网络层
         self.layers = nn.Sequential(
@@ -89,23 +88,9 @@ class MNISTClassifier(pl.LightningModule):
         return torch.argmax(logits, dim=1)
 
     def configure_optimizers(self):
-        """配置优化器"""
-        optimizer = torch.optim.Adam(
-            self.parameters(),
-            lr=self.optimizer['lr']
-        )
+        return self.optimizer
 
-        # 使用学习率调度器
-        scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(
-            optimizer,
-            factor=self.optimizer['scheduler']['factor'],
-            patience=self.optimizer['scheduler']['patience']
-        )
-
-        return {
-            "optimizer": optimizer,
-            "lr_scheduler": {
-                "scheduler": scheduler,
-                "monitor": "val_loss",
-            }
-        }
+    def prepare_optimizer(self, conf):
+        conf['optimizer'] = conf['optimizer'](params=self.parameters())
+        conf['lr_scheduler']['scheduler'] = conf['lr_scheduler']['scheduler'](optimizer=conf['optimizer'])
+        return conf

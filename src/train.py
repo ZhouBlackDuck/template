@@ -18,7 +18,11 @@ def main(cfg: DictConfig):
     # 加载模型
     with open_dict(cfg):
         model_class = get_model(cfg.model.pop("type"))
-    model = model_class(optimizer=cfg.optimizer, **cfg.model)
+    model = model_class(**cfg.model)
+
+    # Optimizer
+    optimizer = hydra.utils.instantiate(cfg.optimizer)
+    model.set_optimizer(optimizer)
 
     # 加载数据集
     with open_dict(cfg):
