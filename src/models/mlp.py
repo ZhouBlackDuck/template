@@ -5,10 +5,8 @@ from torch import nn
 from torchmetrics import Accuracy
 
 from utils.mixins import OptimizerMixin
-from utils.registry import model
 
 
-@model
 class MNISTClassifier(pl.LightningModule, OptimizerMixin):
     """简单的 MLP 模型用于 MNIST 手写数字识别
     
@@ -80,6 +78,20 @@ class MNISTClassifier(pl.LightningModule, OptimizerMixin):
         # 记录指标
         self.log("val_loss", loss, prog_bar=True)
         self.log("val_acc", acc, prog_bar=True)
+
+    def test_step(self, batch, batch_idx):
+        """测试步骤"""
+        x, y = batch
+        logits = self(x)
+        loss = f.cross_entropy(logits, y)
+
+        # 计算准确率
+        preds = torch.argmax(logits, dim=1)
+        acc = self.val_acc(preds, y)
+
+        # 记录指标
+        self.log("test_loss", loss, prog_bar=True)
+        self.log("test_acc", acc, prog_bar=True)
 
     def predict_step(self, batch, batch_idx):
         """预测步骤"""

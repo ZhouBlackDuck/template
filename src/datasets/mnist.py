@@ -1,14 +1,14 @@
 from pathlib import Path
 
+import numpy as np
 import pytorch_lightning as pl
 from torch.utils.data import DataLoader
 from torchvision import transforms, datasets
 
-from utils.registry import data
+from utils.mixins import NumpyMixin
 
 
-@data
-class MNISTDataModule(pl.LightningDataModule):
+class MNISTDataModule(pl.LightningDataModule, NumpyMixin):
     """MNIST 手写数字数据模块
     
     Args:
@@ -31,6 +31,7 @@ class MNISTDataModule(pl.LightningDataModule):
         self.train_ds = None
         self.val_ds = None
         self.predict_ds = None
+        self.test_ds = None
 
     def prepare_data(self):
         """下载数据集（仅在主进程执行一次）"""
@@ -65,6 +66,13 @@ class MNISTDataModule(pl.LightningDataModule):
                 transform=self.transform
             )
 
+        if stage == "test":
+            self.test_ds = datasets.MNIST(
+                self.data_dir,
+                train=False,
+                transform=self.transform
+            )
+
     def train_dataloader(self):
         """训练数据加载器"""
         return DataLoader(
@@ -92,3 +100,27 @@ class MNISTDataModule(pl.LightningDataModule):
             num_workers=self.num_workers,
             persistent_workers=True if self.num_workers > 0 else False
         )
+
+    def test_dataloader(self):
+        """测试数据加载器"""
+        return DataLoader(
+            self.test_ds,
+            batch_size=self.batch_size,
+            num_workers=self.num_workers,
+            persistent_workers=True if self.num_workers > 0 else False
+        )
+
+    def to_numpy(self, stage=None):
+        samples = []
+        labels = []
+        self.setup(stage)
+        if stage == "fit":
+            for x, y in self.train_dataloader():
+                samples.append(x.view(x.size(0), -1).numpy())
+                labels.append(y.numpy())
+            samples = np.concatenate(samples, axis=0)
+            labels = np.concatenate(labels, axis=0)
+        return {
+            "X": samples,
+            "y": labels
+        }

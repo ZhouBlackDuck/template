@@ -7,3 +7,8 @@ class OptimizerMixin:
 
     def set_optimizer(self, conf):
         self.optimizer = self.prepare_optimizer(conf)
+
+
+class NumpyMixin:
+    def to_numpy(self, stage=None):
+        raise NotImplementedError("Must implement this method")

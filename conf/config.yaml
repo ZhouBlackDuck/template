@@ -5,10 +5,11 @@ defaults:
   - logger: tensorboard
   - trainer: default
   - train: default
-  - infer: default
-  - eval: default
+  - custom: default
   - _self_
 
+customize: false
+task: dl
 seed: 42
 
 hydra:

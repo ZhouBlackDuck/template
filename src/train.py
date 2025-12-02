@@ -2,42 +2,57 @@ import os
 from pathlib import Path
 
 import hydra
+import joblib
 from omegaconf import DictConfig, open_dict
 from pytorch_lightning import seed_everything, Trainer
 
-# noinspection PyUnresolvedReferences
-import datamodules
-# noinspection PyUnresolvedReferences
-import models
-from utils.registry import get_data, get_model
 
-
-# noinspection DuplicatedCode
-@hydra.main(config_path="../conf", config_name="config", version_base="1.3")
-def main(cfg: DictConfig):
-    # 加载模型
-    with open_dict(cfg):
-        model_class = get_model(cfg.model.pop("type"))
-    model = model_class(**cfg.model)
-
+def deep_learning(model, dm, cfg):
     # Optimizer
     optimizer = hydra.utils.instantiate(cfg.optimizer)
     model.set_optimizer(optimizer)
-
-    # 加载数据集
-    with open_dict(cfg):
-        data_class = get_data(cfg.data.pop("type"))
-    dm = data_class(**cfg.data)
 
     # Logger
     logger = hydra.utils.instantiate(cfg.logger)
 
     # Trainer
-    seed_everything(cfg.seed, workers=True)
     trainer = Trainer(logger=logger, **cfg.trainer)
 
     # 训练
     trainer.fit(model, dm, **cfg.train)
+
+
+def machine_learning(model, dm, cfg):
+    model.fit(**dm.to_numpy(stage="fit"), **cfg.train)
+    joblib.dump(model, "model.pkl")
+
+
+@hydra.main(config_path="../conf", config_name="config", version_base="1.3")
+def main(cfg: DictConfig):
+    # Seed
+    seed_everything(cfg.seed, workers=True)
+
+    # 加载模型
+    model = hydra.utils.instantiate(cfg.model)
+
+    # 加载数据集
+    dm = hydra.utils.instantiate(cfg.data)
+
+    with open_dict(cfg):
+        task = cfg.pop('task')
+        customize = cfg.pop('customize')
+        custom = cfg.pop('custom')
+
+    if task == "dl":
+        script = deep_learning
+    elif task == "ml":
+        script = machine_learning
+    else:
+        raise ValueError(f"Unknown task: {cfg.task}")
+    if customize:
+        script = hydra.utils.instantiate(custom)
+
+    script(model, dm, cfg)
 
 
 if __name__ == "__main__":

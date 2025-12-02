@@ -8,16 +8,8 @@
 
 ```
 data/
-├── 📁 MNIST/                    # MNIST 手写数字数据集（示例）
-│   └── 📁 raw/
-│       ├── train-images-idx3-ubyte
-│       ├── train-images-idx3-ubyte.gz
-│       ├── train-labels-idx1-ubyte
-│       ├── train-labels-idx1-ubyte.gz
-│       ├── t10k-images-idx3-ubyte
-│       ├── t10k-images-idx3-ubyte.gz
-│       ├── t10k-labels-idx1-ubyte
-│       └── t10k-labels-idx1-ubyte.gz
+├── 📁 {dataset}/                    # 数据集
+│
 └── 📄 README.md
 ```
 
