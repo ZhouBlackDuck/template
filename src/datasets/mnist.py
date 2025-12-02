@@ -120,6 +120,12 @@ class MNISTDataModule(pl.LightningDataModule, NumpyMixin):
                 labels.append(y.numpy())
             samples = np.concatenate(samples, axis=0)
             labels = np.concatenate(labels, axis=0)
+        elif stage == "test":
+            for x, y in self.test_dataloader():
+                samples.append(x.view(x.size(0), -1).numpy())
+                labels.append(y.numpy())
+            samples = np.concatenate(samples, axis=0)
+            labels = np.concatenate(labels, axis=0)
         return {
             "X": samples,
             "y": labels
